@@ -64,7 +64,8 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        //
+        $member = Member::findOrFail($id);
+        return view('member.show',compact('member'));
     }
 
     /**

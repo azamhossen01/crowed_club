@@ -21,5 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware'=>'auth'],function(){
     Route::resource('members','MemberController');
+    Route::get('edit_payment','PaymentController@edit_payment')->name('edit_payment');
+    Route::post('update_payment','PaymentController@update_payment')->name('update_payment');
     Route::resource('payments','PaymentController');
 });

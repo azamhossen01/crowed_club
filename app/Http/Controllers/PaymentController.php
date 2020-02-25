@@ -97,4 +97,17 @@ class PaymentController extends Controller
     {
         //
     }
+
+    public function edit_payment(Request $request){
+        $payment = MemberDetail::findOrFail($request->payment_id);
+        return $payment;
+    }
+
+    public function update_payment(Request $request){
+        // return $request;
+        $payment = MemberDetail::findOrFail($request->payment_id);
+        $payment->amount = $request->amount;
+        $payment->update();
+        return redirect()->route('members.show',$payment->member_id);
+    }
 }

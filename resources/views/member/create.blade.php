@@ -62,14 +62,12 @@
             <div class="form-group">
               <div class="form-label-group">
                 <textarea name="address" id="address" placeholder="Address" class="form-control"  cols="30" rows="5"></textarea>
-                {{-- <label for="address">Address</label> --}}
               </div>
             </div>
 
             <div class="form-group">
               <div class="form-label-group">
                 <input type="file" name="image" id="image">
-                {{-- <label for="image">Image</label> --}}
               </div>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Register</button>

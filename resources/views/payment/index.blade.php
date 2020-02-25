@@ -21,7 +21,7 @@
         <div class="card-header">
           <i class="fas fa-table"></i>
           All Payments
-        <a class="btn btn-primary float-right" href="{{route('payments.create')}}">Add New</a>
+        {{-- <a class="btn btn-primary float-right" href="{{route('payments.create')}}">Add New</a> --}}
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -33,7 +33,6 @@
                   <th>Phone</th>
                   <th>Amount</th>
                   <th>Start date</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tfoot>
@@ -43,28 +42,21 @@
                   <th>Phone</th>
                   <th>Amount</th>
                   <th>Start date</th>
-                  <th>Action</th>
                 </tr>
               </tfoot>
               <tbody>
                 
-                <?php $i = 1; ?>
-                @forelse($payments as $key=>$payment)
+              @forelse($payments as $key=>$payment)
                 <tr>
-                <td>{{$i++}}</td>
-                <td>{{$payment->first()->member->first_name}} {{$payment->first()->member->last_name}}</td>
-                <td>{{$payment->first()->member->phone}}</td>
-                <td>{{$payment->sum('amount')}}</td>
-                <td>{{$payment->first()->member->created_at->diffForHumans()}}</td>
-                <td>
-                <a href="{{route('payments.show',$payment->first()->id)}}" class="btn btn-success">Details</a>
-                <a href="{{route('payments.edit',$payment->first()->id)}}" class="btn btn-warning">Edit</a>
-                <a href="{{route('payments.edit',$payment->first()->id)}}" class="btn btn-danger">Delete</a>
-                </td>
+                <td>{{$key+1}}</td>
+                <td>{{$payment->member->first_name}} {{$payment->member->last_name}}</td>
+                <td>{{$payment->member->phone}}</td>
+                <td>{{$payment->amount}}</td>
+                <td>{{$payment->created_at->format('M d Y')}}</td>
                 </tr>
-                @empty 
-
-                @endforelse
+              @empty 
+               
+              @endforelse
 
               </tbody>
             </table>

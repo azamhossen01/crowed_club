@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Member;
+use App\MemberDetail;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $members = count(Member::all());
+        $total_payments = MemberDetail::all()->sum('amount');
+        // return $total_payments;
+        return view('home',compact('members','total_payments'));
     }
 }

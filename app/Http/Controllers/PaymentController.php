@@ -15,7 +15,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = MemberDetail::all()->groupBy('member_id');
+        // $payments = MemberDetail::all()->groupBy('member_id');
+        $payments = MemberDetail::all();
         // return $payments;
         return view('payment.index',compact('payments'));
     }
@@ -40,17 +41,20 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         // return $request;
-        $member = Member::findOrFail($request->member_id);
-        $total_amount = ($member->total_amount+$request->amount);
-        // return $total_amount;
-        $member->total_amount = $total_amount;
-        $member->update();
+        
 
         $member_detail = new MemberDetail;
         $member_detail->member_id = $request->member_id;
         $member_detail->amount = $request->amount;
         $member_detail->save();
-        return redirect()->route('payments.index');
+
+        $member = Member::findOrFail($request->member_id);
+        $total_amount = $member->payments->sum('amount');
+        // return $total_amount;
+        $member->total_amount = $total_amount;
+        $member->update();
+
+        return redirect()->route('members.show',$request->member_id);
     }
 
     /**
@@ -95,7 +99,14 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $payment = MemberDetail::findOrFail($id);
+        $payment->delete();
+        $total_amount = $payment->member->payments->sum('amount');
+        $member = Member::findOrFail($payment->member_id);
+        $member->total_amount = $total_amount;
+        $member->update();
+        return redirect()->route('members.show',$payment->member_id);
+        // return $total_amount;
     }
 
     public function edit_payment(Request $request){
@@ -108,6 +119,10 @@ class PaymentController extends Controller
         $payment = MemberDetail::findOrFail($request->payment_id);
         $payment->amount = $request->amount;
         $payment->update();
+        $member = Member::findOrFail($request->member_id);
+        $total_amount = $member->payments->sum('amount');
+        $member->total_amount = $total_amount;
+        $member->update();
         return redirect()->route('members.show',$payment->member_id);
     }
 }

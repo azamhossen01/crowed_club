@@ -1,5 +1,5 @@
 <ul class="sidebar navbar-nav">
-    <li class="nav-item active">
+<li class="nav-item {{Request::is('home')?'active':''}}">
     <a class="nav-link" href="{{route('home')}}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span>
@@ -21,12 +21,12 @@
         <a class="dropdown-item" href="blank.html">Blank Page</a>
       </div>
     </li> --}}
-    <li class="nav-item">
+    <li class="nav-item  {{Request::is('members*')?'active':''}}">
     <a class="nav-link" href="{{route('members.index')}}">
         <i class="fas fa-fw fa-chart-area"></i>
         <span>Manage Members</span></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item  {{Request::is('payments*')?'active':''}}">
     <a class="nav-link" href="{{route('payments.index')}}">
         <i class="fas fa-fw fa-table"></i>
         <span>Payment</span></a>

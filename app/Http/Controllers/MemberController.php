@@ -99,6 +99,45 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $member = Member::findOrFail($id);
+        // delete image
+        if($member->image){
+            unlink(public_path('backend/members/').$member->image);
+        }
+
+        // delete payments of this member
+        foreach($member->payments as $payment){
+            $payment->delete();
+        }
+        $member->delete();
+        return redirect()->route('members.index');
+    }
+
+    public function edit_member(Request $request){
+        // return $request;
+        $member = Member::findOrFail($request->member_id);
+        return $member;
+
+    }
+
+    public function update_member(Request $request){
+        // return $request;
+        $member = Member::findOrFail($request->member_id);
+        $member->first_name = $request->first_name;
+        $member->last_name = $request->last_name;
+        $member->address = $request->address;
+        $member->email = $request->email;
+        $member->phone = $request->phone;
+        if($request->image){
+            if($member->image){
+                $old_image = public_path('backend/members/').$member->image;
+                unlink($old_image);
+            }
+            $image_name = time().'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('backend/members'),$image_name);
+            $member->image = $image_name;
+        }
+        $member->update();
+        return redirect()->route('members.index');
     }
 }

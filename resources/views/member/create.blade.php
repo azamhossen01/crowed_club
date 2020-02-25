@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-label-group">
-                    <input type="text" name="last_name"  id="last_name" class="form-control" placeholder="Last name" required="required">
+                    <input type="text" name="last_name"  id="last_name" class="form-control" placeholder="Last name" >
                     <label for="last_name">Last name</label>
                   </div>
                 </div>

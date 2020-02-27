@@ -32,7 +32,7 @@
                   <th>Name</th>
                   <th>Phone</th>
                   <th>Amount</th>
-                  <th>Start date</th>
+                  <th>Payment date</th>
                 </tr>
               </thead>
               <tfoot>
@@ -41,7 +41,7 @@
                   <th>Name</th>
                   <th>Phone</th>
                   <th>Amount</th>
-                  <th>Start date</th>
+                  <th>Payment date</th>
                 </tr>
               </tfoot>
               <tbody>
